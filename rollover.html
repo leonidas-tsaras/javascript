@@ -14,25 +14,42 @@
 	margin-top:1px;
 	cursor:pointer;
 }
-.over {
+.over, .active {
 	background-color:#00CCaa;
 	color:#660011;
 }
+
 </style>
 <script>
 	window.onload=function(){
 		var divs = document.getElementsByClassName("out");
 		for (var i=0; i<divs.length; i++) {
-		  divs[i].addEventListener("mouseover", function(){this.className = "out over"});
-		  divs[i].addEventListener("mouseout",  function(){this.className = "out"});
+		  divs[i].addEventListener("mouseover", function(){
+			  		if(this.className != "out active") this.className = "out over";
+				});
+		  divs[i].addEventListener("mouseout", function(){
+			  		if(this.className != "out active") this.className = "out";
+				});
+		  divs[i].addEventListener("click",  onMenuClick);
 		}
+	}
+
+	function onMenuClick(event) {
+		var sibs = event.target.parentNode.childNodes;
+		for (var i=0; i<sibs.length; i++) {
+			sibs[i].className = "out";
+		}
+		event.target.className = "out active";
 	}
 </script>
 </head>
 
 <body>
-<div class="out">menu 1</div>
-<div class="out">menu 2</div>
-<div class="out">menu 3</div>
+<nav>
+   <div class="out">menu 1</div>
+   <div class="out">menu 2</div>
+   <div class="out">menu 3</div>
+   <div class="out">menu 4</div>
+</nav>
 </body>
 </html>
