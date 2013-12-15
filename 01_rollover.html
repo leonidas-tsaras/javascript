@@ -18,9 +18,9 @@
 	background-color:#00CCaa;
 	color:#660011;
 }
-
 </style>
 <script>
+	//called after dom is loaded
 	window.onload=function(){
 		var divs = document.getElementsByClassName("out");
 		for (var i=0; i<divs.length; i++) {
@@ -34,12 +34,15 @@
 		}
 	}
 
+	//function called when click on menu item
 	function onMenuClick(event) {
 		var sibs = event.target.parentNode.childNodes;
 		for (var i=0; i<sibs.length; i++) {
 			sibs[i].className = "out";
 		}
 		event.target.className = "out active";
+		
+		//add extra script here
 	}
 </script>
 </head>
