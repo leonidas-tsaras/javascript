@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style>
+* {
+	margin:0px;
+	padding:0px;
+}
+nav#imagemenu {
+	text-align:center;
+
+}
+nav#imagemenu img {
+	display:table-cell;
+	vertical-align:top;
+	cursor:pointer;
+	width:70px;
+	transition: width 1s;
+}
+</style>
+<script>
+	//start initialization
+	window.onload = function() {
+		//select all image elements in nav tag
+		var imgs = document.getElementById("imagemenu").getElementsByTagName("img");
+		
+		//iterate
+		for(i=0; i<imgs.length; i++) {
+			//add event listeners
+			imgs[i].addEventListener("mouseover", function(){
+				this.style.width="110px";
+			});
+			imgs[i].addEventListener("mouseout", function(){
+				this.style.width="70px";
+			});	
+			imgs[i].addEventListener("click", function(){
+				//add any commands here
+				this.style.width="600px";
+			});				
+		}
+	}
+</script>
+</head>
+
+<body>
+<nav id="imagemenu">
+<img src="images/blog-img1.jpg" />
+<img src="images/blog-img2.jpg" />
+<img src="images/blog-img3.jpg" />
+<img src="images/blog-img4.jpg" />
+<img src="images/blog-img5.jpg" />
+<img src="images/blog-img6.jpg" />
+<img src="images/blog-img7.jpg" />
+</nav>
+</body>
+</html>
