@@ -1,7 +1,7 @@
 javascript
 ==========
 
-apps with pure javascript
-this a series of javascript apps with pure javascript
+Apps with pure javascript.
+This a series of javascript apps with pure javascript
 
-all apps are good mainly for educational purposes
+All apps are offered mainly for educational purposes
