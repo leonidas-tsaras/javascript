@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>accordion</title>
+<style>
+* {
+	padding:0px;
+	margin:0px;
+}
+.faq {
+	width:500px;
+	border:thin #0cc6b5 solid;
+	padding:2px;
+	margin:5px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:14px;	
+}
+.faq .question {
+	border:thin #bbb solid;
+	background-color:#CCC;
+	padding:4px;
+	cursor:pointer;
+	margin-bottom:2px;
+	transition:background-color 1s;
+}
+.faq .question:hover {
+	background-color:#CfC;
+}
+.faq .answer {
+	border:thin #bbe solid;
+	background-color:#CCF;
+	padding:4px;
+	display:none;
+	margin-left:10px;
+}
+</style>
+
+<script>
+window.onload = init;
+
+function init() {
+	var q = document.getElementsByClassName("question");
+	for(var i=0; i<q.length; i++) {
+		q[i].nextElementSibling.style.display="none";
+		q[i].addEventListener("click", function(){
+			var ns = this.nextElementSibling;
+			ns.style.display = (ns.style.display=="none") ? "block" : "none";
+		});
+	}
+}
+</script>
+</head>
+
+<body>
+<div class="faq">
+	<p class="question">Phasellus facilisis ultricies tortor, sit amet auctor leo suscipit non.</p>
+    <p class="answer">Cras semper ultrices nisl, eu facilisis risus fermentum in. Duis sollicitudin facilisis quam, at vestibulum mauris tempus eget. Donec odio odio, luctus nec ante ut, laoreet consequat justo. Nunc quis odio ultricies, placerat nisi id, blandit odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer bibendum dui sit amet libero lacinia, ut suscipit orci facilisis. Sed pretium enim nec leo malesuada adipiscing. Sed mollis, nunc et consequat sodales, quam erat commodo velit, eget lacinia augue velit et nibh. In lacinia tristique nulla fermentum scelerisque. Suspendisse mollis erat ac elit vehicula malesuada. Maecenas sapien eros, posuere ut volutpat sit amet, aliquet in est. Curabitur nibh metus, aliquam in luctus ac, pulvinar sit amet augue. Maecenas pretium neque magna.</p>
+</div>
+<div class="faq">
+	<p class="question">Etiam a risus posuere, vehicula dolor sed, scelerisque risus.</p>
+    <p class="answer">Cras semper ultrices nisl, eu facilisis risus fermentum in. Duis sollicitudin facilisis quam, at vestibulum mauris tempus eget. Donec odio odio, luctus nec ante ut, laoreet consequat justo. Nunc quis odio ultricies, placerat nisi id, blandit odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer bibendum dui sit amet libero lacinia, ut suscipit orci facilisis. Sed pretium enim nec leo malesuada adipiscing. Sed mollis, nunc et consequat sodales, quam erat commodo velit, eget lacinia augue velit et nibh. In lacinia tristique nulla fermentum scelerisque. Suspendisse mollis erat ac elit vehicula malesuada. Maecenas sapien eros, posuere ut volutpat sit amet, aliquet in est. Curabitur nibh metus, aliquam in luctus ac, pulvinar sit amet augue. Maecenas pretium neque magna.</p>
+</div>
+</body>
+</html>
