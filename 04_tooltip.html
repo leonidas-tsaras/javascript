@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>tooltip</title>
+<style>
+    .tooltip {
+        position: absolute;
+        width: 200px;
+        height: 50px;
+        border: 1px solid pink;
+        background-color: khaki;
+        border-radius: 5px;
+        padding: 4px;
+        color: #236;
+    }
+</style>
+<script>
+	window.addEventListener("load", init);
+
+	function init() {
+        var m =document.getElementById("m");
+        m.addEventListener("mouseover", setToolTip);
+        m.addEventListener("mouseout", removeToolTip);
+        m.addEventListener("mousemove", moveToolTip);
+    }
+	
+    function setToolTip() {
+        var tt = document.createElement("div");
+        tt.id="ttdiv";
+        tt.className="tooltip";
+        tt.innerHTML='tt_text';
+        document.body.appendChild(tt);
+    }
+	
+    function removeToolTip() {
+        var tt = document.getElementById("ttdiv");
+        document.body.removeChild(tt);
+    }
+	
+    function moveToolTip(event) {
+        var tt = document.getElementById("ttdiv");
+        tt.style.left=event.clientX +10+"px";
+        tt.style.top=event.clientY+10+"px";
+    }
+</script>
+</head>
+
+<body>
+    <img id="m" src="images/blog-img7.jpg" />
+</body>
+</html>

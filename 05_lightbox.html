@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>lightbox</title>
+<style>
+.shadow {
+    position:fixed;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    background:rgba(100, 100, 100, 0.5) url(images/loading.gif) no-repeat center center;        
+}
+</style>
+<script>
+window.addEventListener('load', init);
+
+    function init() {
+        var imgs = document.getElementById("imagenav").getElementsByTagName("img");
+            for(i=0; i<imgs.length; i++) {
+                    imgs[i].style.cursor="pointer";
+                    imgs[i].addEventListener("click", function() {
+						getLightBox(this.getAttribute("data-src"));
+					});
+            }
+    }
+
+    function getLightBox(url) {
+        var shadow = document.createElement("div");
+        shadow.className="shadow";
+        shadow.addEventListener("click", function() {
+			document.body.removeChild(this);
+		});
+        document.body.appendChild(shadow);
+        var x=new Image();
+        x.setAttribute("src", url);
+        x.addEventListener("load", function() {
+                shadow.style.background="rgba(100, 100, 100, 0.5) url("+url+") no-repeat center center";
+        });
+    }
+</script>
+</head>
+<body>
+    <nav id="imagenav">
+    	<img src="images/thumb-1.jpg" data-src="images/image-1.jpg" />
+        <img src="images/thumb-2.jpg" data-src="images/image-2.jpg" />
+        <img src="images/thumb-3.jpg" data-src="http://crispme.com/wp-content/uploads/3682.jpg?pass" />
+    </nav>
+</body>
+</html>

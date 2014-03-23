@@ -2,19 +2,20 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
 <title>accordion</title>
 <style>
 * {
 	padding:0px;
 	margin:0px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:14px;
 }
 .faq {
 	width:500px;
 	border:thin #0cc6b5 solid;
 	padding:2px;
-	margin:5px;
-	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-	font-size:14px;	
+	margin:5px;	
 }
 .faq .question {
 	border:thin #bbb solid;
@@ -22,7 +23,7 @@
 	padding:4px;
 	cursor:pointer;
 	margin-bottom:2px;
-	transition:background-color 1s;
+	transition:background-color .5s;
 }
 .faq .question:hover {
 	background-color:#CfC;
@@ -37,7 +38,7 @@
 </style>
 
 <script>
-window.onload = init;
+window.addEventListener("load", init);
 
 function init() {
 	var q = document.getElementsByClassName("question");
@@ -45,7 +46,7 @@ function init() {
 		q[i].nextElementSibling.style.display="none";
 		q[i].addEventListener("click", function(){
 			var ns = this.nextElementSibling;
-			ns.style.display = (ns.style.display=="none") ? "block" : "none";
+			ns.style.display = (ns.style.display==="none") ? "block" : "none";
 		});
 	}
 }

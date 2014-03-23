@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>progressbar</title>
+<style>
+#testdiv {
+	width:300px;
+	height:25px;
+}
+.progressbar {
+		background:pink no-repeat linear-gradient(blue, cyan 50%, blue);
+		border-radius:5px;
+		font-family:Verdana, Geneva, sans-serif;
+		font-size:13px;
+		font-weight:bold;
+		color:white;
+		padding:4px 0px;
+		text-align:center;	
+}
+</style>
+<script>
+	window.addEventListener("load", function() {
+		/* 	you can call getProgressBar after the DOM is loaded.
+			Three parameters are needed: total value, part value and the id
+			of the div or any container where the progressbar will be hosted.
+		*/
+		getProgressBar(120, 65, "testdiv");
+	});
+
+	function getProgressBar(total, part, id) {
+		//get the container
+		var container=document.getElementById(id);
+		//create a new div element for progressbar
+		var progressbar = document.createElement("div");
+		//set class for progressbar
+		progressbar.className="progressbar";
+		//calculate percentage
+		var percent = parseFloat(part/total)*100;
+        percent=percent.toFixed(2);
+		//set gradient background size and text
+		progressbar.style.backgroundSize=percent+"% 100%";
+		progressbar.innerHTML=percent+"%";
+		//append progressbar in the container
+		container.appendChild(progressbar);
+	}
+</script>
+</head>
+<body>
+	<div id="testdiv"></div>
+</body>
+</html>

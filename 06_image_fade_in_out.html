@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>fade in out</title>
+<style>
+#fadediv {
+	font-size:30px;
+	opacity:0;
+	transition:opacity 2s;
+}
+</style>
+<script>
+var content = ["images/blog-img1.jpg", "images/blog-img2.jpg", "images/blog-img3.jpg", "images/blog-img4.jpg", "images/blog-img5.jpg"];
+var counter=0;
+var fdiv;
+	window.addEventListener("load", function() {
+		fdiv=document.getElementById("fadediv");
+		fadeIn();
+	});
+	
+	function fadeIn(){
+		if(counter==content.length) counter= 0;
+		fdiv.innerHTML = "<img src='"+ content[counter++] +"' />";
+		fdiv.style.opacity=1;
+		setTimeout('fadeOut()', 4000);
+	}
+	function fadeOut() {
+		fdiv.style.opacity=0;
+		setTimeout('fadeIn()', 2000);
+	}
+</script>
+</head>
+<body>
+	<div id="fadediv"></div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<head>
+<meta charset="utf-8" />
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>image slider</title>
+<style>
+.slidermask {
+	position:absolute;
+	border:#039 solid thin;
+	overflow:hidden;
+}
+	
+.sliderdiv {
+	position:absolute;
+	left:0px;
+	transition: left 1s;
+}
+.shadow {
+    position:fixed;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+	background-color:rgba(100, 100, 100, 0.5);   
+}
+</style>
+
+<script>
+var srcs = ["images/blog-img1.jpg", "images/blog-img2.jpg", "images/blog-img3.jpg", "images/blog-img4.jpg", "images/blog-img5.jpg"];
+var imageWidth=680;
+var imageHeight=300;
+var arrowHeight=50;
+var sliderdiv, slidermask;
+var counter=0;
+window.addEventListener("load", init);
+
+//initialization function, app starts from here
+function init() {
+	//create sliderdiv (holds all images in a row)
+	sliderdiv = document.createElement("div");
+	//stylize sliderdiv
+	sliderdiv.className="sliderdiv";
+	sliderdiv.style.width=(srcs.length)*imageWidth +"px";
+	sliderdiv.style.height=imageHeight +"px";
+	
+	//create slidermask (functions as a mask for sliderdiv)
+	slidermask = document.createElement("div");
+	//stylize slidermask
+	slidermask.className="slidermask";
+	slidermask.style.width=imageWidth +"px";
+	slidermask.style.height=imageHeight +"px";
+	
+	//when slidermask clicked, nothing happens
+	slidermask.addEventListener("click", function(event) {
+		event.stopPropagation();
+		return;
+	});	
+	
+	//append sliderdiv into slidermask
+	slidermask.appendChild(sliderdiv);
+	
+	//preload, size and append images into sliderdiv 
+	for(i in srcs) {
+		var img = new Image();
+		img.setAttribute("src", srcs[i]);
+		img.style.width=imageWidth+"px";
+		img.style.height=imageHeight+"px";
+		sliderdiv.appendChild(img);	
+	}
+
+	//add navigation arrow images on both sides
+	setArrowImages();
+	
+	//put slider at the center of window
+	centerSlider();
+}
+
+//sets slider centered when window is resized
+window.addEventListener("resize", centerSlider);
+function centerSlider() {
+	slidermask.style.left=(window.innerWidth - imageWidth)/2 +"px";
+	slidermask.style.top="20%";
+}
+
+function setArrowImages() {
+	//sets right image
+	var iright = new Image();
+	iright.setAttribute("src", "images/right-arrow.png");
+	iright.style.position="absolute";
+	iright.style.right="0px";
+	iright.style.height=arrowHeight+"px";
+	iright.style.top=(imageHeight-arrowHeight)/2 +"px";
+	iright.style.cursor="pointer";
+	iright.style.visibility="hidden";
+	//adds click listener for getting next image
+	iright.addEventListener("click", getNextImage);
+	slidermask.appendChild(iright);
+	
+	//sets left image
+	var ileft = new Image();
+	ileft.setAttribute("src", "images/left-arrow.png");
+	ileft.style.position="absolute";
+	ileft.style.left="0px";
+	ileft.style.height=arrowHeight+"px";
+	ileft.style.top=(imageHeight-arrowHeight)/2 +"px";
+	ileft.style.cursor="pointer";
+	ileft.style.visibility="hidden";
+	//adds click listener for getting previous image
+	ileft.addEventListener("click", getPrevImage);
+	slidermask.appendChild(ileft);
+	
+	//changes arrows visibility on mouse events
+	slidermask.addEventListener("mousemove", function(event){
+		if(event.clientX>imageWidth/2 + parseInt(this.style.left)) {
+			iright.style.visibility="visible";
+			ileft.style.visibility="hidden";
+		} else {
+			iright.style.visibility="hidden";
+			ileft.style.visibility="visible";
+		}
+	});
+	
+	slidermask.addEventListener("mouseout", function(){
+		iright.style.visibility="hidden";
+		ileft.style.visibility="hidden";
+	});
+}
+
+function getNextImage(event){
+	event.stopPropagation();
+	if(counter>=srcs.length-1) return;
+	counter++;
+	sliderdiv.style.left = -counter*imageWidth +"px";
+}
+
+function getPrevImage(event){
+	event.stopPropagation();
+	if(counter<=0) return;
+	counter--;
+	sliderdiv.style.left = -counter*imageWidth +"px";
+}
+
+//start function, when called app starts
+function getSlider() {
+	//create background shadow
+	var shadow = document.createElement("div");
+	shadow.className="shadow";
+	shadow.appendChild(slidermask);
+	document.body.appendChild(shadow);
+	shadow.addEventListener("click", function() {
+		document.body.removeChild(this);
+	});	
+}
+
+</script>
+</head>
+<body>
+<button onClick="getSlider()" >show slider</button>
+</body>
+</html>
