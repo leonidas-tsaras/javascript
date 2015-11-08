@@ -5,7 +5,7 @@
 <meta name="developer" content="leonidas.tsaras@gmail.com" />
 <title>menu</title>
 <style>
-.out {
+#menunav div {
 	width:100px;
 	padding:5px 0px;
 	background-color:#CCCC00;
@@ -15,44 +15,38 @@
 	margin-top:1px;
 	cursor:pointer;
 }
-.over, .active {
+#menunav .over, #menunav .active {
 	background-color:#00CCaa;
 	color:#660011;
 }
 </style>
 <script>
-	window.addEventListener("load", function() {
-		var divs = document.getElementsByClassName("out");
-		for (var i=0; i<divs.length; i++) {
-			divs[i].addEventListener("mouseover", function() {
-			  	if(this.className != "out active") this.className = "out over";
-			});
-			divs[i].addEventListener("mouseout", function(){
-			  	if(this.className != "out active") this.className = "out";
-			});
-			divs[i].addEventListener("click",  onMenuClick);
-		}
-	});
+	window.addEventListener("load", setMenu);
 
-	//function called when click on menu item
-	function onMenuClick(event) {
-		var sibs = event.target.parentNode.childNodes;
-		for (var i=0; i<sibs.length; i++) {
-			sibs[i].className = "out";
-		}
-		event.target.className = "out active";
-		
-		//you may add extra script here
+	function setMenu() {
+		var divs = document.querySelectorAll('#menunav div');
+		for (var i=0; i<divs.length; i++) {
+			divs[i].addEventListener("mouseover", function(){this.classList.toggle("over");});
+			divs[i].addEventListener("mouseout", function(){this.classList.toggle("over");});
+			divs[i].addEventListener("click",  function() {
+				var sibs = document.querySelectorAll('#menunav div');
+				for (var i=0; i<sibs.length; i++) {
+					sibs[i].className = "out";
+				}
+				this.className = "out active";
+				//add link code here		
+			});
+		}		
 	}
 </script>
 </head>
 
 <body>
-<nav>
-   <div class="out">menu item 1</div>
-   <div class="out">menu item 2</div>
-   <div class="out">menu item 3</div>
-   <div class="out">menu item 4</div>
+<nav id ="menunav">
+   <div>menu item 1</div>
+   <div>menu item 2</div>
+   <div>menu item 3</div>
+   <div>menu item 4</div>
 </nav>
 </body>
 </html>
