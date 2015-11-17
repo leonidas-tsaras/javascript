@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>menu</title>
+<style>
+#menunav div {
+	width:100px;
+	padding:5px 0px;
+	background-color:#CCCC00;
+	color:#000066;
+	text-align:center;
+	border:1px solid #6633FF;
+	margin-top:1px;
+	cursor:pointer;
+}
+#menunav div:hover,  #menunav .active {
+	background-color:#00CCaa;
+	color:#660011;
+}
+
+</style>
+<script>
+	window.addEventListener("load", setMenu);
+
+	function setMenu() {
+		var menu =	[ 	{ text:"menu item 1", href:"#" },
+						{ text:"menu item 2", href:"#" },
+						{ text:"menu item 3", href:"#" },
+						{ text:"menu item 4", href:"#" },
+						{ text:"menu item 5", href:"#" }
+					];
+
+		var menunav = document.getElementById("menunav");
+
+		//loop over menu object
+		for(var i=0; i<menu.length; i++) {
+			var d = document.createElement("div"); //create new div element
+			d.textContent = menu[i].text; //set text
+			d.addEventListener("click",  function() { 
+				var divs = menunav.getElementsByTagName("div");
+				for (var j=0; j<divs.length; j++) { 
+					divs[j].classList.remove("active");
+				}
+				this.classList.add("active");
+
+				//add link code here
+				//location.href = this.href;
+			});
+			menunav.appendChild(d);
+		}
+		//optionally set default active
+		menunav.getElementsByTagName("div")[0].click();
+	}
+</script>
+</head>
+
+<body>
+<nav id ="menunav"></nav>
+</body>
+</html>

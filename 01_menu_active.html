@@ -15,10 +15,11 @@
 	margin-top:1px;
 	cursor:pointer;
 }
-#menunav .over, #menunav .active {
+#menunav div:hover,  #menunav .active {
 	background-color:#00CCaa;
 	color:#660011;
 }
+
 </style>
 <script>
 	window.addEventListener("load", setMenu);
@@ -26,18 +27,16 @@
 	function setMenu() {
 		var divs = document.querySelectorAll('#menunav div');
 		for (var i=0; i<divs.length; i++) {
-			divs[i].addEventListener("mouseover", function(){this.classList.toggle("over");});
-			divs[i].addEventListener("mouseout", function(){this.classList.toggle("over");});
 			divs[i].addEventListener("click",  function() {
 				for (var i=0; i<divs.length; i++) {
 					divs[i].classList.remove("active");
 				}
 				this.classList.add("active");
-				//add link code here		
+				//add link code here	
 			});
 		}
 		//optionally set default active
-		divs[0].click();	
+		divs[0].click();
 	}
 </script>
 </head>
