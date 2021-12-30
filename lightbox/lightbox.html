@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>lightbox</title>
+<style>
+.shadow {
+    position:fixed;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    background:rgba(100, 100, 100, 0.5) url(../images/loading.gif) no-repeat center center;        
+}
+
+</style>
+<script>
+    window.addEventListener('load', init);
+
+    function init() {
+        var imgs = document.getElementById("imagenav").getElementsByTagName("img");
+            for(i=0; i<imgs.length; i++) {
+                    imgs[i].style.cursor="pointer";
+                    imgs[i].addEventListener("click", function() {
+						getLightBox(this.getAttribute("src"));
+					});
+            }
+    }
+
+    function getLightBox(url) {
+        const shadow = document.createElement("div");
+        shadow.className="shadow";
+        shadow.addEventListener("click", function() {
+			document.body.removeChild(this);
+		});
+        document.body.appendChild(shadow);
+        const x = new Image();
+        x.setAttribute("src", url);
+        x.addEventListener("load", function() {
+                shadow.style.backgroundColor =   "rgba(100, 100, 100, 0.5)"; 
+                shadow.style.backgroundImage =   `url(${url})`;
+                shadow.style.backgroundRepeat =   "no-repeat";
+                shadow.style.backgroundPosition = "center";
+                shadow.style.backgroundSize = "contain";
+        });
+    }
+</script>
+</head>
+<body>
+    <nav id="imagenav">
+    	<img src="../images/blog-img1.jpg" width = "100" />
+        <img src="../images/blog-img2.jpg" width = "100" />
+        <img src="../images/blog-img3.jpg" width = "100" />
+    </nav>
+</body>
+</html>
