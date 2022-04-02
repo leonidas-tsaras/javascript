@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-sizing: border-box;
+            font-size: 18px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        section#tabs {
+            width: 600px;
+        }
+
+        section#tabs > div:first-child {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        section#tabs > div:first-child > nav {
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            background-color: bisque;
+            cursor: pointer;
+            transition: all .5s;
+        }
+
+        section#tabs > div:first-child > nav:hover {
+            background-color: rgb(187, 118, 33);
+        }
+
+        section#tabs > div:last-child {
+            padding: 5px;
+        }
+
+        section#tabs > div:last-child > div {
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+    </style>
+
+    <script>
+        window.addEventListener("load", initTabs);
+
+        function initTabs() {
+            let container = document.querySelector("section#tabs");
+            let navs = container.querySelectorAll("div:nth-child(1) > nav");
+            let divs = container.querySelectorAll("div:nth-child(2) > div");
+            let h = [];
+            for(let i = 0; i < navs.length; i++) {
+                navs[i].addEventListener("click", function() {
+                    let height = divs[i].style.height;
+                    for(let j = 0; j < divs.length; j++) {
+                        divs[j].style.height = "0px";
+                    }
+                    if(height == "0px") divs[i].style.height = h[i] + "px";
+                });
+                h[i] = divs[i].clientHeight;
+                divs[i].style.height = "0px";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <section id = "tabs">
+        <div>
+            <nav>Retina Ready</nav><nav>Free Updates</nav><nav>Useful Sections</nav>
+        </div>
+        <div>
+            <div>1. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem error aut aperiam et voluptate omnis, ducimus vero dolor aliquam odit asperiores magnam quam nobis iusto eos sit officiis? Mollitia hic accusamus esse consequatur necessitatibus deleniti eaque velit sunt eum in.</div>
+
+            <div>2. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem error aut aperiam et voluptate omnis, ducimus vero dolor aliquam odit asperiores magnam quam nobis iusto eos sit officiis? Mollitia hic accusamus esse consequatur necessitatibus deleniti eaque velit sunt eum in. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, unde.</div>          
+
+            <div>3. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem error aut aperiam et voluptate omnis, ducimus vero dolor aliquam odit asperiores magnam quam nobis.</div>
+        </div>
+    </section>
+    
+</body>
+</html>
