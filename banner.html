@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        #banner-container {
+            width: 300px;
+            height: 200px;
+            border: solid thin gray;
+            margin: 10px;
+        }
+
+        #banner-container > img {
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+
+    <script>
+
+        let bannerImages = [
+            "images/blog-img1.jpg",
+            "images/blog-img5.jpg",
+            "images/blog-img6.jpg",
+            "images/blog-img7.jpg"
+        ];
+
+        window.addEventListener("load", function() {
+            runBanner();
+        });
+
+        function runBanner(counter = 0) {
+            let img = document.querySelector("#banner-container > img");
+            //img.setAttribute("src", bannerImages[0]);
+            img.src = bannerImages[counter];
+            if(++counter == bannerImages.length) 
+                counter = 0;
+
+            setTimeout(runBanner, 5000, counter);
+        }
+
+    </script>
+</head>
+<body>
+
+    <div id = 'banner-container'>
+        <img src="" alt="">
+    </div>
+    
+</body>
+</html>

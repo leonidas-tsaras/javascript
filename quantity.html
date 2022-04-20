@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        div#quantity > input[type='number'] {
+            width: 50px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        div#quantity > button {
+            font-size: 18px;
+        }
+
+    </style>
+
+    <script>
+        var stock = 8;
+
+        function addOne() {
+            let input = document.querySelector("div#quantity > input[type='number']");
+            let val = parseInt(input.value);
+
+            if(val < stock) {
+                input.value = val + 1;
+            }
+
+            if(val > 0) {
+                let btn = document.querySelector("div#quantity > button:first-child");
+                btn.removeAttribute("disabled");
+            }
+        }
+
+        function subOne() {
+            let input = document.querySelector("div#quantity > input[type='number']");
+            let btn = document.querySelector("div#quantity > button:first-child");
+
+            let val = parseInt(input.value);
+            if(val > 1) {
+                input.value = val - 1;
+            }
+
+            if(val == 1) {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+    <div id="quantity">
+        <button onclick = "subOne()">-</button>
+        <input type="number" id="" value = "1">
+        <button onclick = "addOne()">+</button>
+    </div>
+    
+</body>
+</html>
