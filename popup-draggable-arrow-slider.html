@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+        div.shadow {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            bottom: 0px;
+            right: 0px;
+            background-color: rgb(100, 148, 237, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        div.shadow span {
+            font-size: 25px;
+            color: black;
+            font-weight: bold;
+            position: absolute;
+            top: 2%;
+            right: 2%;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        div.draggableSlider {
+            --maxSliderWidth: 900px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: var(--maxSliderWidth);
+            height: 100%;
+            max-height: calc(var(--maxSliderWidth) * 2/3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        div.draggableSlider > div {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            display: inline-flex;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        div.draggableSlider  > div.shifting {
+            transition: left .3s ease-out;
+        }
+
+        div.draggableSlider  > div > img {
+            object-fit: contain;
+            /* background-color: #fff; */
+        }
+
+        div.draggableSlider a.control {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        div.draggableSlider a.control:active {
+            transform: scale(0.8);
+        }
+    </style>
+</head>
+<body>
+<script>
+
+function draggableShadowSlider(imageSet) {
+    const totalImages = imageSet.length; //holds total number of images
+    let containerWidth; //holds container width;
+    let containerHeight; //holds container height;
+    const shiftingRatio = 0.2;
+    let posInitial, posFinal, tempInitial;
+
+    let slides = [];
+    imageSet.forEach((element) => {
+        let img = document.createElement("img");
+        img.setAttribute("src", element);
+        slides.push(img)
+    });
+
+    //create container
+    const container = document.createElement("div");
+    container.className = "draggableSlider";
+
+    // arrow click events
+    const prev = document.createElement("a");
+    prev.className = "control";
+    prev.textContent = '‹';
+    const next = document.createElement("a");
+    next.className = "control";
+    next.textContent = '›';
+
+    container.appendChild(prev);
+    container.appendChild(next);
+    
+    //create imageHolder inside container
+    const imageHolder = document.createElement("div");
+
+    //append images into imageHolder
+    slides.forEach((element) => {
+        imageHolder.appendChild(element);
+    });
+
+    container.appendChild(imageHolder);
+/*     container.addEventListener("click", function(event) {
+        event.stopPropagation();
+    }); */
+
+    prev.addEventListener('click', function(event) {
+        event.stopPropagation();
+        let left = imageHolder.offsetLeft + containerWidth;
+        if(left >= 0) left = 0;
+        imageHolder.style.left = left + "px";
+    });
+
+    next.addEventListener('click', function(event) {
+        event.stopPropagation();
+        let left = imageHolder.offsetLeft - containerWidth;
+        if(left <= -containerWidth * totalImages)
+            left = containerWidth * (1 - totalImages);
+        imageHolder.style.left = left + "px";
+    });
+
+    // Mouse events for desktop
+    imageHolder.addEventListener('mousedown', onMouseDownOrTouchStart);
+    imageHolder.addEventListener('mouseup' , onMouseUpOrTouchEnd);
+
+    // Touch events for mobile
+    imageHolder.addEventListener('touchstart', onMouseDownOrTouchStart);
+    imageHolder.addEventListener('touchmove', onMouseMoveOrΤouchMove);
+    imageHolder.addEventListener('touchend', onMouseUpOrTouchEnd);
+
+    function onMouseDownOrTouchStart(event) {
+        posInitial = imageHolder.offsetLeft;
+        tempInitial = event.clientX || event.touches[0].clientX;
+        imageHolder.classList.remove('shifting');
+        imageHolder.addEventListener('mousemove', onMouseMoveOrΤouchMove);
+    }
+
+    function onMouseMoveOrΤouchMove (event) {
+        event.preventDefault();
+        if (event.type == 'touchmove') {
+            posFinal = tempInitial - event.touches[0].clientX;
+            tempInitial = event.touches[0].clientX;
+        } else {
+            posFinal = tempInitial - event.clientX;
+            tempInitial = event.clientX;
+        }
+        posFinal = imageHolder.offsetLeft - posFinal;
+        checkFinalPosition();
+        imageHolder.style.left = posFinal + "px";
+    }
+
+    function onMouseUpOrTouchEnd(event) {
+        event.preventDefault();
+        imageHolder.removeEventListener('mousemove', onMouseMoveOrΤouchMove);
+        imageHolder.classList.add('shifting');
+        const ratio = (posInitial - imageHolder.offsetLeft)/containerWidth;
+        posFinal = containerWidth * (Math.round(imageHolder.offsetLeft / containerWidth));
+        if(Math.abs(ratio) > shiftingRatio) {
+            posFinal = posFinal + ((ratio > 0) ? -containerWidth : containerWidth);
+        } else {
+            posFinal = containerWidth * (Math.round(imageHolder.offsetLeft / containerWidth));
+        }
+        checkFinalPosition();
+        imageHolder.style.left = posFinal + 'px';
+    }
+
+    function checkFinalPosition() {
+        if(posFinal <= containerWidth * (1-totalImages))
+            posFinal = containerWidth * (1-totalImages);
+        if(posFinal >= 0)
+            posFinal = 0;
+    }
+
+    window.addEventListener("resize", onResize);
+    function onResize() {
+        containerWidth = container.clientWidth;
+
+        //set new imageHolder width
+        imageHolder.style.width = containerWidth * (totalImages) + "px";
+
+        //set images width
+        slides.forEach((element) => {
+            element.style.width = containerWidth + "px";
+        });
+
+        //add shifting class
+        imageHolder.classList.add('shifting');
+
+        //align image center
+        imageHolder.style.left = containerWidth * Math.ceil(imageHolder.offsetLeft / containerWidth) + 'px';
+    }
+    
+    function getLightBox() {
+        const shadow = document.createElement("div");
+        const span = document.createElement("span");
+        span.innerHTML = `&#9587`;
+        shadow.className = "shadow";
+        span.addEventListener("click", function() {
+            document.body.removeChild(shadow);
+        });
+        shadow.appendChild(span);
+        shadow.appendChild(container);
+        document.body.appendChild(shadow);
+    }
+    getLightBox();
+    onResize();
+}
+
+//start from here
+const imagesSrcSet = [
+    "images/blog-img1.jpg",
+    "images/blog-img2.jpg",
+    "images/image-4.jpg",
+    "images/blog-img4.jpg"
+];
+draggableShadowSlider(imagesSrcSet);
+
+</script>
+</body>
+</html>
