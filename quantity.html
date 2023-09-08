@@ -20,44 +20,41 @@
     </style>
 
     <script>
-        var stock = 8;
 
-        function addOne() {
-            let input = document.querySelector("div#quantity > input[type='number']");
-            let val = parseInt(input.value);
+        window.addEventListener("load", init);
 
-            if(val < stock) {
-                input.value = val + 1;
-            }
-
-            if(val > 0) {
-                let btn = document.querySelector("div#quantity > button:first-child");
-                btn.removeAttribute("disabled");
-            }
+        function init() {
+            setQuantity();
         }
 
-        function subOne() {
+        function setQuantity(min = 1, max = 10, step = 1) {
             let input = document.querySelector("div#quantity > input[type='number']");
-            let btn = document.querySelector("div#quantity > button:first-child");
+            let subber = document.querySelector("div#quantity > button:first-child");
+            let adder = document.querySelector("div#quantity > button:last-child");
 
-            let val = parseInt(input.value);
-            if(val > 1) {
-                input.value = val - 1;
-            }
+            input.value = min; input.min = min; input.max = max; input.step = step;
 
-            if(val == 1) {
-                btn.setAttribute("disabled", "true");
-            }
+            adder.addEventListener("click", () => {
+                input.stepUp();
+            });
+
+            subber.addEventListener("click", () => {
+                input.stepDown();
+            });
+
+            input.addEventListener("change", () => {
+                if(parseInt(input.value) > parseInt(input.max)) input.value = input.max;
+                if(parseInt(input.value) < parseInt(input.min)) input.value = input.min;
+            });
         }
-
     </script>
 </head>
 <body>
 
     <div id="quantity">
-        <button onclick = "subOne()">-</button>
-        <input type="number" id="" value = "1">
-        <button onclick = "addOne()">+</button>
+        <button>-</button>
+        <input type="number">
+        <button>+</button>
     </div>
     
 </body>
