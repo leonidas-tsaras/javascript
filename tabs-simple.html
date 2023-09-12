@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Tabs App</title>
+
+   <style>
+      body {
+         background-color: lightgray;
+      }
+      div#tab-wrapper {
+         overflow: auto;
+         resize: both;
+         color: white;
+         width: 600px;
+      }
+      div#tab-wrapper > nav  {
+         display: flex;
+         flex-direction: row;
+         align-content: flex-start;
+      }
+      div#tab-wrapper > nav > div {
+         width: 100%;
+         text-align: center;
+         font-weight: bold;
+         cursor: pointer;
+         padding: 7px;
+         border: thin solid white;         
+      }
+      div#tab-wrapper > nav > div.on {
+         background-color: rgba(91, 40, 138, 0.3);
+      }
+      div#tab-wrapper > section {
+         background-color: rgba(91, 40, 138, 0.3);
+         margin-top: 5px;
+         padding: 5px;
+      }
+      div#tab-wrapper > section > div  {
+         display: none;
+      }
+   </style>
+
+   <script>
+      window.addEventListener("load", init);
+
+      function init() {
+         tabsApp();
+      }
+
+      function tabsApp() {
+         const navDiv = Array.from(document.querySelectorAll("div#tab-wrapper > nav > div"));
+         const sectionDiv = Array.from(document.querySelectorAll("div#tab-wrapper > section > div"));
+         navDiv.forEach((item) => {
+            item.addEventListener("click", () => {
+               navDiv.forEach((item) => {
+                     item.classList.remove('on');
+               });
+               item.classList.add('on');
+
+               sectionDiv.forEach((element, index) => {
+                  element.style.display = (navDiv[index].classList.contains('on')) ? "block" : "none";
+               });
+            });
+         })
+         navDiv[0].click();
+      }
+   </script>
+
+</head>
+<body>
+
+   <div id = "tab-wrapper">
+      <nav>
+         <div>profile</div><div>services</div><div>prices</div>
+      </nav>
+      <section>
+         <!-- profile -->
+         <div>Lorem 1 ipsum dolor sit, amet consectetur adipisicing elit. Mollitia error dolor voluptates? Doloribus explicabo nemo ipsa id, accusamus harum? Omnis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi id nemo odit porro! Eius ratione error rerum. Voluptatum, vel id. Nobis perspiciatis ad mollitia numquam nisi consectetur magni accusantium rem?</div>
+         <!-- services -->
+         <div>Lorem 2 ipsum dolor sit, amet consectetur adipisicing elit. Mollitia error dolor voluptates? Doloribus explicabo nemo ipsa id, accusamus harum? Omnis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia accusantium asperiores voluptatem sed error temporibus aliquam soluta reiciendis laborum qui, eos dignissimos explicabo minus, in blanditiis mollitia doloremque magnam unde!</div>
+         <!-- prices -->
+         <div>Lorem 3 ipsum dolor sit, amet consectetur adipisicing elit. Mollitia error dolor voluptates? Doloribus explicabo nemo ipsa id, accusamus harum? Omnis. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate eligendi doloribus labore, tempore commodi sapiente sint voluptatibus facilis provident ullam aspernatur vero? Facilis aliquid, culpa assumenda velit labore voluptas totam?</div>
+      </section>
+   </div>
+</body>
+</html>
