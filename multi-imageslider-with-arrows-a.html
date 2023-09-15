@@ -1,0 +1,138 @@
+<!doctype html>
+<head>
+<meta charset="utf-8" />
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>image slider no flex</title>
+<style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        border: none;
+        text-decoration: none;
+        outline: none;
+    }
+
+    body {
+        font-size: 18px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    div.slider-container {
+        --sliderWidth: 600px;
+        --sliderHeight: 300px;
+        width: var(--sliderWidth);
+        height: var(--sliderHeight);
+        position: relative;
+    }
+
+    div.slider-container > div:nth-child(1) {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+        overflow: hidden;
+
+        > div {
+            display: flex;
+
+            > img {
+                width: var(--sliderWidth);
+                height: var(--sliderHeight);
+                object-fit: cover;
+            }
+        }
+    }
+    div.slider-container > div:nth-child(2) {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+
+        > span {
+            padding: 0rem 1rem;
+            background-color: rgba(200, 200, 200, 0.5);
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            font-size: 5rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10%;
+            color: white;
+        }
+
+        > span:nth-of-type(1) {
+            left: 1rem;
+        }
+
+        > span:nth-of-type(2) {
+            right: 1rem;
+        }
+    }
+</style>
+
+<script>
+    window.addEventListener("load", () => {
+
+        const sliders = Array.from(document.querySelectorAll("div.slider-container"));
+        sliders.forEach(slider => {
+            getSlider(slider);
+        });
+        
+    });
+
+    function getSlider(sliderContainer) {
+        const imageContainer = sliderContainer.querySelector("div:nth-child(1)");
+        const arrows = sliderContainer.querySelectorAll("div:nth-child(2) > span");
+        const sliderWidth = sliderContainer.clientWidth;
+
+        arrows[0].addEventListener("click", () => {
+            imageContainer.scrollBy({top: 0, left: sliderWidth, behavior: "smooth"});
+        });
+        arrows[1].addEventListener("click", () => {
+            imageContainer.scrollBy({top: 0, left: -sliderWidth, behavior: "smooth"});
+        });
+    }
+</script>
+</head>
+<body>
+
+<div class = "slider-container">
+    <div><!-- nth-child(1) -->
+        <div>
+            <img src = "images/blog-img1.jpg">
+            <img src = "images/blog-img2.jpg">
+            <img src = "images/blog-img3.jpg">
+            <img src = "images/blog-img4.jpg">
+            <img src = "images/blog-img5.jpg">
+        </div>
+    </div>
+
+    <div><!-- nth-child(2) -->
+        <span>‹</span>
+        <span>›</span>
+    </div>
+</div>
+
+
+<div class = "slider-container">
+    <div><!-- nth-child(1) -->
+        <div>
+            <img src = "images/blog-img6.jpg">
+            <img src = "images/blog-img7.jpg">
+            <img src = "images/blog-img3.jpg">
+            <img src = "images/blog-img4.jpg">
+            <img src = "images/blog-img5.jpg">
+        </div>
+    </div>
+
+    <div><!-- nth-child(2) -->
+        <span>‹</span>
+        <span>›</span>
+    </div>
+</div>
+</body>
+</html>
