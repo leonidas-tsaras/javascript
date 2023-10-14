@@ -18,10 +18,12 @@
             }
 
             nav.icon-container {
-                --barColor: #045709;
+                --barColor: #05470a;
                 --barWidth: 40px;
                 --barheight: 6px;
                 --barMarginVertical: 8px;
+                --transitionTime: 0.5s;
+                --rotationAngle: 135deg;
                 --translateY: calc((var(--barheight) + var(--barMarginVertical)));
                 display: inline-block;
                 cursor: pointer;
@@ -31,21 +33,22 @@
                     height: var(--barheight);
                     background-color: var(--barColor);
                     margin: var(--barMarginVertical) 0;
-                    transition: 0.5s;
+                    transition: var(--transitionTime);
                 }
 
                 &.change {
                     & > div:nth-child(1) {
-                        transform: translateY(var(--translateY)) rotate(-135deg);
+                        transform: translateY(var(--translateY)) rotate(calc(-1 * var(--rotationAngle)));
                     }
                     & > div:nth-child(2) {
                         opacity: 0;
                     }
                     & > div:nth-child(3) {
-                        transform: translateY(calc(var(--translateY) * -1)) rotate(135deg);
+                        transform: translateY(calc(var(--translateY) * -1)) rotate(var(--rotationAngle));
                     }
                 }
             }
+
         </style>
 
         <script>

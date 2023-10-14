@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=, initial-scale=1.0" />
     <title>Vanilla Slider</title>
     <style>
-    div.draggableSlider * {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-      border: none;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-sizing: border-box;
+        text-decoration: none;
+      }
 
     div.draggableSlider {
       --app-width: 100vw;
@@ -21,13 +22,6 @@
       scrollbar-width: none; /* for Firefox */
       margin: auto;
       /* border: thin solid lightgray; */
-    }
-
-    @media (orientation: landscape) {
-      div.draggableSlider {
-      --app-height: 80vh;
-      --app-width: calc(var(--app-height) * 1.5);
-      }
     }
 
     div.draggableSlider > div {
@@ -47,7 +41,7 @@
       padding: 1rem;
       border-radius: 4px;
       user-select: none;
-      object-fit: contain;
+      object-fit: cover;
       transition: transform 0.3s ease-out;
     }
 
@@ -58,6 +52,13 @@
     div.draggableSlider > div.grabbing > img {
       transform: scale(0.9);
       /* box-shadow: 5px 5px 5px -1px lightgray; */
+    }
+
+    @media (orientation: landscape) {
+      div.draggableSlider {
+      --app-height: 80vh;
+      --app-width: calc(var(--app-height) * 1.5);
+      }
     }
     </style>
 

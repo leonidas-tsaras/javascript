@@ -5,30 +5,24 @@
     <meta name="viewport" content="width=, initial-scale=1.0" />
     <title>Vanilla Slider</title>
     <style>
-    div.draggableSlider * {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-      border: none;
-    }
-
-    div.draggableSlider {
-      --app-width: 100vw;
-      --app-height: calc(var(--app-width) * 0.67);
-      width: var(--app-width);
-      height: var(--app-height);
-      overflow: hidden;
-      scrollbar-width: none; /* for Firefox */
-      margin: auto;
-      /* border: thin solid lightgray; */
-    }
-
-    @media (orientation: landscape) {
-      div.draggableSlider {
-      --app-height: 80vh;
-      --app-width: calc(var(--app-height) * 1.5);
+      * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-sizing: border-box;
+        text-decoration: none;
       }
-    }
+
+      div.draggableSlider {
+        --app-width: 100vw;
+        --app-height: calc(var(--app-width) * 0.67);
+        width: var(--app-width);
+        height: var(--app-height);
+        overflow: hidden;
+        scrollbar-width: none; /* for Firefox */
+        margin: auto;
+        /* border: thin solid lightgray; */
+      }
 
     div.draggableSlider > div {
       height: 100%;
@@ -47,7 +41,7 @@
       padding: 1rem;
       border-radius: 4px;
       user-select: none;
-      object-fit: contain;
+      object-fit: cover;
       transition: transform 0.3s ease-out;
     }
 
@@ -59,6 +53,13 @@
       transform: scale(0.9);
       /* box-shadow: 5px 5px 5px -1px lightgray; */
     }
+
+      @media (orientation: landscape) {
+        div.draggableSlider {
+          --app-height: 80vh;
+          --app-width: calc(var(--app-height) * 1.5);
+        }
+      }
     </style>
 
     <script>
@@ -168,13 +169,13 @@
   <body>
     <div class="draggableSlider">
       <div>
-          <img src="images/mountain.jpg" loading = "lazy" />
-          <img src="images/coffee.jpeg" loading = "lazy"  />
-          <img src="images/path.jpg" loading = "lazy"  />
-          <img src="images/img3.jpg" loading = "lazy"  />
-          <img src="images/river.jpg" loading = "lazy"  />
-          <img src="images/ship.jpg" loading = "lazy"  />
-          <img src="images/winter.jpg" loading = "lazy"  />
+        <img src="images/mountain.jpg" loading = "lazy" />
+        <img src="images/coffee.jpeg" loading = "lazy"  />
+        <img src="images/path.jpg" loading = "lazy"  />
+        <img src="images/img3.jpg" loading = "lazy"  />
+        <img src="images/river.jpg" loading = "lazy"  />
+        <img src="images/ship.jpg" loading = "lazy"  />
+        <img src="images/winter.jpg" loading = "lazy"  />
       </div>
     </div>
   </body>
