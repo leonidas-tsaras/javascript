@@ -19,8 +19,8 @@
         }
 
         div.slider {
-            --sliderWidth: 800px;
-            --sliderHeight: 400px;
+            --sliderWidth: 521px;
+            --sliderHeight: 700px;
             width: var(--sliderWidth);
             height: var(--sliderHeight);
             position: relative;
@@ -84,19 +84,18 @@
             let right = document.querySelector("div.arrows > img:last-child");
             right.addEventListener("click", function() {
                 if(counter < length-1) counter++;
-                scroller.scroll({top: 0, left: counter*scrollerWidth, behavior: "smooth"});
+                scroller.scrollBy({top: 0, left: scrollerWidth, behavior: "smooth"});
             });
 
             let left = document.querySelector("div.arrows > img:first-child");
             left.addEventListener("click", function() {
                 if(counter > 0) counter--;
-                scroller.scroll({top: 0, left: counter*scrollerWidth, behavior: "smooth"});
+                scroller.scrollBy({top: 0, left: -scrollerWidth, behavior: "smooth"});
             });
         }
     </script>
 </head>
 <body>
-
     <div class="slider">
         <div class = arrows>
             <img src="./images/left.png">
@@ -104,14 +103,12 @@
         </div>
         <div class = "scroller">
             <div class="image-container">
-                <img src="./images/blog-img1.jpg">
-                <img src="./images/blog-img2.jpg">
-                <img src="./images/blog-img3.jpg">
+                <img src="./images/01.jpg">
+                <img src="./images/02.jpg">
+                <img src="./images/03.jpg">
                 <img src="./images/04.jpg">
-                <img src="./images/05.jpg">
             </div>
         </div>
     </div>
-    
 </body>
 </html>

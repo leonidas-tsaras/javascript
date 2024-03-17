@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Slider</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+            text-decoration: none;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        /* slider start */
+        div.slider {
+            --sliderWidth: 400px;
+            --sliderHeight: 600px;
+
+            width: var(--sliderWidth);
+            height: var(--sliderHeight);
+            position: relative;
+        }
+        div.slider > div.arrows {
+            position: absolute;
+            left: 0px;
+            top: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            filter: invert(100%);
+        }
+        div.slider > div.arrows > img {
+            width: 50px;
+            cursor: pointer;
+        }
+        div.slider > div.scroller {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        div.slider > div.scroller > div.image-container {
+            display: flex;
+            width: fit-content;
+        }
+
+        div.slider > div.scroller > div.image-container > img {
+            width: var(--sliderWidth);
+            height: var(--sliderHeight);
+            object-fit: cover;
+        }
+        /* slider end */
+    </style>
+
+    <script>
+        window.addEventListener("load", init);
+
+        function init() {
+            simpleSlider();
+        }
+
+        function simpleSlider() {
+            const sliders = document.querySelectorAll("div.slider");
+            sliders.forEach((slider) => {
+                let scroller = slider.querySelector("div.scroller");
+                let imageContainer = scroller.querySelector("div.image-container");
+                let images = imageContainer.querySelectorAll("img");
+                let scrollerWidth = scroller.offsetWidth;
+                let length = images.length;
+                let counter = 0;
+
+                let left = slider.querySelector("div.arrows > img:first-child");
+                let right = slider.querySelector("div.arrows > img:last-child");
+
+                right.addEventListener("click", function() {
+                    if(counter < length-1) counter++;
+                    scroller.scrollBy({top: 0, left: scrollerWidth, behavior: "smooth"})
+                });
+
+                left.addEventListener("click", function() {
+                    if(counter > 0) counter--;
+                    scroller.scrollBy({top: 0, left: -scrollerWidth, behavior: "smooth"})
+                }); 
+            })
+        }
+
+    </script>
+</head>
+<body>
+    <div class="slider">
+        <div class = "arrows">
+            <img src="./images/left.png">
+            <img src="./images/right.png">
+        </div>
+        <div class="scroller">
+            <div class="image-container">
+                <img src="./images/01.jpg">
+                <img src="./images/02.jpg">
+                <img src="./images/03.jpg">
+                <img src="./images/04.jpg">
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="slider">
+        <div class = "arrows">
+            <img src="./images/left.png">
+            <img src="./images/right.png">
+        </div>
+        <div class="scroller">
+            <div class="image-container">
+                <img src="./images/01.jpg">
+                <img src="./images/02.jpg">
+                <img src="./images/03.jpg">
+                <img src="./images/04.jpg">
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="slider">
+        <div class = "arrows">
+            <img src="./images/left.png">
+            <img src="./images/right.png">
+        </div>
+        <div class="scroller">
+            <div class="image-container">
+                <img src="./images/01.jpg">
+                <img src="./images/02.jpg">
+                <img src="./images/03.jpg">
+                <img src="./images/04.jpg">
+            </div>
+        </div>
+    </div>   
+</body>
+</html>
