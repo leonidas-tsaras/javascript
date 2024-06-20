@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-sizing: border-box;
+            font-size: 18px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        form {
+            --primaryColor: rgb(232, 47, 58);
+            width: 100%;
+            text-align: right;
+            max-width: 700px;
+            margin: auto;
+
+            > input {
+                margin-top: 1rem;
+                padding: 1rem;
+                font-size: 1.3rem;
+            }
+
+            > input[type='email'] {
+                color: var(--primaryColor);
+                width: 100%;
+                border: solid thin lightgray;
+            }
+
+            > input[type='submit'] {
+                color: var(--primaryColor);
+                width: 30%;
+                min-width: 150px;
+                cursor: pointer;
+                border: solid thin white;
+            }
+
+            > input[type='submit']:hover {
+                border: solid thin lightgray;
+            }
+
+            > p#message {
+                text-align: left;
+                margin-top: 1rem;
+            }
+
+            > p.success {
+                color: green;
+            }
+
+            > p.error {
+                color: red;
+            }
+        }
+    </style>
+    <script>
+function sendEmail(event) {
+    event.preventDefault();
+    let email = document.querySelector("form input[type='email']").value;
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+        if (this.readyState == 4 && this.status == 200) {
+            var resposnse = xhttp.responseText;  //ανάγνωση δεδομένων
+
+            let p = document.querySelector("form > p#message");
+            if(resposnse === email) {
+                p.className = "success";
+                p.textContent = "Thanks for registering";
+            } else {
+                p.className = "error";
+                p.textContent = "oops, something went wrong, please try again";
+            }
+        }
+    };
+
+    xhttp.open("POST", "newsletter.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(`email=${email}`);
+
+    xhttp.onerror = () => {
+        let p = document.querySelector("form > p#message");
+        p.className = "error";
+        p.textContent = "oops, something went wrong, please try again";
+    }
+}
+    </script>
+</head>
+<body>
+
+    <form onsubmit="sendEmail(event)">
+        <input type="email" placeholder="Email address" value="">
+        <input type="submit" value="Sign up">
+        <p id = "message"></p>
+    </form>
+
+</body>
+</html>
