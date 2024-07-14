@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>simple lightbox</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-sizing: border-box;
+        text-decoration: none;
+        font-size: 18px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    html, body {
+        height: 100%;
+    }
+
+    body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: black;
+    --primaryColor: hsl(194, 20%, 20%);
+    --primaryLightColor: hsl(194, 20%, 55%);
+    --primaryVeryLightColor: hsl(194, 20%, 90%);
+    --maxWidth: 1600px;
+    --headerHeight: 150px;
+
+    --firstBreak: 900px;
+}
+
+    #wrapper {
+    width: 100%;
+    max-width: var(--maxWidth);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+/* header ------------------------------------- */
+header {
+    width: 100%;
+    max-width: var(--maxWidth);
+    margin: auto;
+    height: var(--headerHeight);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgb(234, 223, 243);
+}
+
+header nav#logo {
+    height: 100%;
+}
+
+header nav#logo img {
+    height: 100%;
+}
+
+header nav.main-menu {
+    display: block;
+    a {
+        font-size: 18px;
+        color: var(--primaryColor);
+        padding: 5px 15px;
+        transition: all 0.3s;
+        text-underline-offset: 0;
+    }
+    a:hover {
+        text-decoration: underline;
+        text-underline-offset: 5px;
+    }
+    a[aria-current="page"] {
+        text-decoration: underline;
+        text-underline-offset: 5px;
+    }
+}
+
+header nav.main-menu.block {
+    display: block;
+}
+
+header nav#burger-icon {
+    cursor: pointer;
+    display: none;
+    font-size: 2rem;
+}
+
+main {
+    flex-grow: 1;
+    background-color: rgb(224, 243, 223);
+}
+
+footer {
+    height: var(--headerHeight);
+    background-color: rgb(243, 223, 233);
+}
+
+/* @media screen and (max-width: 900px) */
+@media (width <= 900px) {
+
+    header nav.main-menu {
+        position: absolute;
+        display: none;
+        top: var(--headerHeight);
+        right: 0px;
+        width: 100%;
+        max-width: 320px;
+        background-color: rgb(234, 223, 243);
+        border-top: solid thin rgb(224, 243, 223);
+        a {
+            display: block;
+        }
+    }
+
+    header nav#burger-icon {
+        display: block;
+    }
+
+}
+</style>
+
+<script>
+    const breakPoint = 900;
+    let mainMenu, burgerIcon;
+    window.addEventListener('load', () => {
+        const mainMenu = document.querySelector("header nav.main-menu");
+        const burgerIcon = document.querySelector("header nav#burger-icon");
+        if(!burgerIcon) return;
+        burgerIcon.addEventListener("click", () => {
+            mainMenu.classList.toggle("block");
+            burgerIcon.textContent = (burgerIcon.textContent === "⛌") ? "☰" : "⛌";
+        });
+
+        window.addEventListener("resize", () => {
+            if(window.innerWidth > breakPoint) {
+                mainMenu.classList.remove("block");
+                burgerIcon.textContent = "☰";
+            }
+        });
+    });
+</script>
+
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <nav id='logo'>
+                <a href="">
+                    <img src="./images/logo.png" alt="">
+                </a>
+            </nav>
+            <nav class = "main-menu">
+                <a href="">Home</a>
+                <a href="recipes">Recipes</a>
+                <a href="about">About</a>
+                <a href="location">Location</a>
+                <a href="faq">FAQ</a>
+                <a href="contact">Contact</a>
+            </nav>
+            <nav id = "burger-icon">☰</nav>
+        </header>
+
+         <main>
+
+         </main>
+
+         <footer>
+
+         </footer>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>simple lightbox</title>
+<style>
+    @charset "UTF-8";
+    * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-sizing: border-box;
+        text-decoration: none;
+    }
+
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 16px;
+        color: black;
+        --primaryColor: hsl(194, 20%, 20%);
+        --primaryLightColor: hsl(194, 20%, 55%);
+        --primaryVeryLightColor: hsl(194, 20%, 90%);
+        --linkColor: gray;
+        --maxPageWidth: 1600px;
+        --headerMenuHeight: 150px;
+        --firstBreak: 900px;
+    }
+
+    .wrapper {
+        width: 100%;
+        max-width: var(--maxPageWidth);
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+/* top-menu ------------------------------------- */
+section#top-menu {
+    width: 100%;
+    background-color: var(--primaryColor);
+    padding: 0.3rem;
+    > nav {
+        width: 100%;
+        max-width: var(--maxPageWidth);
+        margin: auto;
+        text-align: right;
+
+/*        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1.2rem;*/
+    }
+    > nav > a {
+        color: white;
+        padding: 0.5rem;
+    }
+    > nav > a:hover {
+        font-weight: bold;
+    }
+    > nav > a.active-cart {
+        /*color: var(--primaryColor);*/
+        font-weight: bold;
+    }
+}
+/* top-menu ---------------------------------------- */
+
+/* header ------------------------------------------ */
+div.wrapper > header {
+    width: 100%;
+    border-bottom: 2px solid var(--primaryColor);
+    position: relative;
+    z-index: 1000;
+    background-color: inherit;
+}
+/* header ------------------------------------------ */
+
+/* header-menu ------------------------------------- */
+section#header-menu {
+    width: 100%;
+    height: var(--headerMenuHeight);
+    max-width: var(--maxPageWidth);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > a {
+        height: 80%;
+    }
+    > a > img {
+        height: 100%;
+        width: auto;
+    }
+}
+/* header-menu ------------------------------------- */
+
+
+/* section.menu-container ============================================== */
+section#header-menu > section.menu-container {
+    a {
+        transition: all 0.3s;
+        color: var(--linkColor);
+        font-weight: normal;
+    }
+    a[aria-current="page"] {
+        color: var(--primaryColor);
+    }
+    ul {
+        list-style-type: none;
+    }
+    li:hover > a {
+        color: var(--primaryColor);
+    }
+    > ul.bar {
+        width: max-content;
+        display: inline-block;
+    }
+    ul.bar > li {
+        display: inline-block;
+        position: relative;
+    }
+    > ul.bar > li > a {
+        padding: 1rem 0.5rem;;
+    }
+    > ul.bar > li > ul.sub-menu {
+        display: none;
+        position: absolute;
+        background-color: white;
+        box-shadow: -2px 2px 4px lightGray;
+        padding: 1rem;
+        border: solid thin white;
+        min-width: 320px;
+        width: max-content;
+        top: 2rem;
+        /* right: 0px; */
+        left: 0px;
+    }
+    > ul.bar > li:hover > ul.sub-menu {
+        display: block;
+    }
+    > ul.bar > li > ul.sub-menu > li > a {
+        padding: 5px 0px;
+        border-bottom: dashed thin lightgray;
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    > ul.bar > li > ul.sub-menu > li:last-of-type > a {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    > ul.bar > li > ul.sub-menu > li > ul.sub-menu {
+        column-count: 2;
+        column-gap: 3rem;
+    }
+    > ul.bar > li > ul.sub-menu > li > ul.sub-menu > li > a {
+        padding: 5px 10px 5px 0px;
+        font-weight: normal;
+    }
+    > ul.bar > li > ul.sub-menu > li > ul.sub-menu > li > a::before {
+        /*content: "⋄";*/
+        /*content: "⇨";*/
+        content: "\203A\203A";
+        display: inline-block;
+        margin-right: 0.2rem;
+        color: var(--primaryColor);
+        font-size: 1.3em;
+    }
+    /* burger icon ------------------------------------------------------- */
+    > nav#burger-icon {
+        display: none;
+        font-size: 2.5rem;
+        color: var(--primaryColor);
+        cursor: pointer;
+    }
+
+    /* cart icon ---------------------------------------------------------- */
+    > a.cart-menu-class {
+        background-image: url(/en/wp-content/themes/cooll-alpha/assets/images/cart-icon.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding: 1rem 0.5rem 0.5rem;
+        text-align: center;
+        font-weight: 500;
+        color: var(--primaryColor);
+        font-size: 1rem;
+    }
+}
+
+
+
+/* media queries ------------------------- */
+/* sizes 480, 540, 600, 640, 720, 768, 800, 960  */
+@media (width <= 1600px) {
+    section#header-menu {
+        padding: 0 1%;
+    }
+}
+
+@media (width <= 960px) {
+
+    section#header-menu > section.menu-container > nav#burger-icon {
+        display: inline-block;
+    }
+
+    /* drop down menu ------------------------------ */
+    section#header-menu > section.menu-container {
+        > ul.bar {
+            display: none;
+            background-color: white;
+            box-shadow: -2px 2px 4px lightGray;
+            position: absolute;
+            width: 100%;
+            max-width: 600px;
+            right: 0px;
+            top: var(--headerMenuHeight);
+            padding: 0.5rem;
+        }
+        ul.bar.block {
+            display: block;
+        }
+        > ul.bar > li {
+            display: block;
+        }
+        > ul.bar > li > a {
+            display: inline-block;
+            width: 100%;
+            padding: 0.2rem 0;
+        }
+
+        > ul.bar > li > ul.sub-menu {
+            position: static;
+            display: block;
+            margin-left: 1rem;
+            background-color: unset;
+            box-shadow: none;
+            border: none;
+            width: 100%;
+            min-width: unset;
+        }
+        > ul.bar > li > ul.sub-menu > li {
+            width: 100%;
+            margin: 0px;
+        }
+        > ul.bar > li > ul.sub-menu > li > a {
+            padding: 0.2rem 0;
+            display: inline-block;
+        }
+        > ul.bar > li > ul.sub-menu > li:last-of-type > a {
+            border-bottom: dashed thin lightgray;
+        }
+        > ul.bar > li > ul.sub-menu > li > a:before {
+            content: "\203A";
+            display: inline-block;
+            margin-right: 0.2rem;
+            color: var(--primaryColor);
+            font-size: 1.3em;
+        }
+    }
+    /* drop down menu ------------------------------ */
+}
+</style>
+
+<script>
+window.addEventListener("load", init);
+const maxPageWidth = 1600; // check with css variable
+const breakPoint = 960; //check with css break point too
+
+function init() {
+    const burgerIcon = document.querySelector("section.menu-container > nav#burger-icon");
+    const burgerMenu = document.querySelector("section.menu-container > ul.bar");
+    burgerIcon.addEventListener("click", () => {
+        burgerMenu.classList.toggle("block");
+        burgerIcon.textContent = burgerMenu.classList.contains("block") ? "⛌" : "☰";
+    });
+
+    addMenuEvent();
+    window.dispatchEvent(new Event('resize'));
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > breakPoint) {
+            if(burgerMenu.classList.contains("block")) {
+                burgerIcon.click();
+            }
+        }
+    });
+}
+
+function addMenuEvent() {
+    const header = document.querySelector("div.wrapper > header");
+    //const bar = document.querySelector("section.menu-container > ul.bar");
+    const lis = Array.from(document.querySelectorAll("ul.bar > li"));
+    lis.forEach((li) => {
+        let ul = li.querySelector("ul.sub-menu");
+        if (ul) {
+            li.addEventListener("mouseover", () => {
+                if(ul.getBoundingClientRect().right > header.getBoundingClientRect().right) {
+                    ul.style.left = header.getBoundingClientRect().right - ul.getBoundingClientRect().right  + "px";
+                }
+            });
+        }
+    });
+}
+
+</script>
+
+</head>
+<body>
+    <section id = "top-menu">
+        <nav>
+            <a href="tel:+30 6986853298">6986853298</a>
+            <a href="#">Λογαριασμός</a>
+            <a href="#">Ταμείο</a>
+            <a href="#">Καλάθι</a>
+            <a href="#">Επικοινωνία</a>
+        </nav>
+    </section>
+
+    <div class="wrapper">
+        <header>
+            <section id="header-menu">
+                <a href="/home">
+                    <img id="logo-image" src="./images/logo.png" alt="logo">
+                </a>
+                <section class="menu-container">
+                    <ul class="bar">
+                        <li>
+                            <a href="#">Κρεβατοκάμαρα</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#">Σεντόνια</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#">Σεντόνια μεμονωμένα</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Σεντόνια σετ</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Παιδικά Σετ Σεντόνια</a>
+                                        </li>
+                                    </ul> <!-- sub menu b -->
+                                </li>
+                                <li>
+                                    <a href="#">Μαξιλάρια</a>
+                                </li>
+                                <li>
+                                    <a href="#">Μαξιλαροθήκες</a>
+                                </li>
+                                <li>
+                                    <a href="#">Κουβέρτες</a>
+                                </li>
+                                <li>
+                                    <a href="#">Κουβερλί</a>
+                                </li>
+                                <li>
+                                    <a href="#">Κουβερτοπαπλώματα</a>
+                                </li>
+                                <li>
+                                    <a href="#">Παπλώματα</a>
+                                </li>
+                                <li>
+                                    <a href="#">Παπλωματοθήκες</a>
+                                </li>
+                                <li>
+                                    <a href="#">Ανωστρώματα</a>
+                                </li>
+                                <li>
+                                    <a href="#">Επιστρώματα</a>
+                                </li>
+                            </ul> <!-- sub menu a -->
+                        </li>
+                        <li>
+                            <a href="#">Σαλόνι</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#">Καλύμματα</a>
+                                </li>
+                                <li>
+                                    <a href="#">Ριχτάρια</a>
+                                </li>
+                                <li>
+                                    <a href="#">Κουρτίνες</a>
+                                </li>
+                                <li>
+                                    <a href="#">Ομπρελοθήκες</a>
+                                </li>
+                            </ul>  <!-- sub menu a -->
+                        </li>
+                        <li>
+                            <a href="#">Μπάνιο</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#">Μπουρνούζια</a>
+                                </li>
+                                <li>
+                                    <a href="#">Πετσέτες</a>
+                                </li>
+                                <li>
+                                    <a href="#">Πετσέτες Θαλάσσης</a>
+                                </li>
+                                <li>
+                                    <a href="#">Πατάκια</a>
+                                </li>
+                                <li>
+                                    <a href="#">Είδη Μπάνιου</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#">Πιγκάλ</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Πιγκάλ-Χαρτοθήκες</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Dispensers</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Καλάθια Απλύτων</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Χαρτοδοχεία</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Χαρτοθήκες</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Κρίκοι &amp; Πετσετοθήκες</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Άγκιστρα</a>
+                                        </li>
+                                    </ul> <!-- sub menu b -->
+                                </li>
+                            </ul> <!-- sub menu a -->
+                        </li>
+                        <li>
+                            <a href="#">Κουζίνα</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#">Πετσέτες Φαγητού</a>
+                                </li>
+                                <li>
+                                    <a href="#">Τραπεζομάντηλα</a>
+                                </li>
+                                <li>
+                                    <a href="#">Ψωμιέρες</a>
+                                </li>
+                                <li>
+                                    <a href="#">Ποτηρόπανα</a>
+                                </li>
+                                <li>
+                                    <a href="">Πιάτα</a>
+                                </li>
+                                <li>
+                                    <a href="#">Μπωλ</a>
+                                </li>
+                                <li>
+                                    <a href="#">Κάδοι Απορριμμάτων</a>
+                                </li>
+                            </ul> <!-- sub menu a -->
+                        </li>
+                        <li>
+                            <a href="#">Διάφορα</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#">Σάκοι Υφασμάτινοι</a>
+                                </li>
+                                <li>
+                                    <a href="#">Είδη Αποθήκευσης</a>
+                                </li>
+                                <li>
+                                    <a href="#">Καλάθια Γραφείου &amp; Δωματίου / Χαρτοδοχεία</a>
+                                </li>
+                                <li>
+                                    <a href="#">Σουβέρ &amp; Διακοσμητικοί Δίσκοι</a>
+                                </li>
+                                <li>
+                                    <a href="#">Σταχτοδοχεία</a>
+                                </li>
+                            </ul> <!-- sub menu a -->
+                        </li>
+                    </ul>
+                    <nav id="burger-icon">☰</nav>
+                </section>
+            </section>
+        </header>
+
+         <main>
+
+         </main>
+
+         <footer>
+
+         </footer>
+    </div>
+
+
+</body>
+</html>

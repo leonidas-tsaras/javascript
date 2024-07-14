@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+window.onload = function() {
+	//let event = new Event("load");
+    //document.body.dispatchEvent(event);
+
+    //document.body.onload = function() {
+        //window.scroll(100, 0);
+    //}
+
+    //document.body.onclick = () => {
+        //console.log(event);
+        window.scroll({top: 100, left: 0, behavior: "smooth",});
+    //}
+}
+    </script>
+
+    <style>
+        main {
+            width: 50%;
+            border: solid thin red;
+        }
+    </style>
+</head>
+<body>
+
+    <main id="cart">
+        <div class="woocommerce">
+            <div class="woocommerce-notices-wrapper"></div>
+    
+            <form class="woocommerce-cart-form" action="https://homelover.gr/cart/" method="post">
+                <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="product-remove"><span class="screen-reader-text">Remove item</span></th>
+                            <th class="product-thumbnail"><span class="screen-reader-text">Thumbnail image</span></th>
+                            <th class="product-name">Product</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-subtotal">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="woocommerce-cart-form__cart-item cart_item">
+                            <td class="product-remove">
+                            <a href="https://homelover.gr/cart/?remove_item=31c0c178a9fc26ffecffd8670e6d746d&amp;_wpnonce=bfa10f8ba0" class="remove" aria-label="Remove Ριχτάρι lito 1 anthrax from cart" data-product_id="3187" data-product_sku="141-41-1-anthrax">×</a> </td>
+                            <td class="product-thumbnail">
+                            <a href="https://homelover.gr/προιον/%cf%81%ce%b9%cf%87%cf%84%ce%ac%cf%81%ce%b9-lito-1-anthrax/"><img fetchpriority="high" decoding="async" width="400" height="400" src="https://homelover.gr/wp-content/uploads/141-42-1-anthrax-01-400x400.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="https://homelover.gr/wp-content/uploads/141-42-1-anthrax-01-400x400.jpg 400w, https://homelover.gr/wp-content/uploads/141-42-1-anthrax-01-100x100.jpg 100w" sizes="(max-width: 400px) 100vw, 400px"></a> </td>
+                            <td class="product-name" data-title="Product">
+                            <a href="https://homelover.gr/προιον/%cf%81%ce%b9%cf%87%cf%84%ce%ac%cf%81%ce%b9-lito-1-anthrax/">Ριχτάρι lito 1 anthrax</a>
+                            </td>
+                            <td class="product-price" data-title="Price">
+                            <span class="woocommerce-Price-amount amount"><bdi>77,00&nbsp;<span class="woocommerce-Price-currencySymbol">€</span></bdi></span>
+                            </td>
+                            <td class="product-quantity" data-title="Quantity">
+                                <div class="quantity">
+                                <label class="screen-reader-text" for="quantity_668991558c94a">Ριχτάρι lito 1 anthrax quantity</label>
+                                <input type="number" id="quantity_668991558c94a" class="input-text qty text" name="cart[31c0c178a9fc26ffecffd8670e6d746d][qty]" value="1" aria-label="Product quantity" size="4" min="0" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
+                                </div>
+                            </td>
+                            <td class="product-subtotal" data-title="Subtotal">
+                            <span class="woocommerce-Price-amount amount"><bdi>77,00&nbsp;<span class="woocommerce-Price-currencySymbol">€</span></bdi></span> </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="actions">
+                            <div class="coupon">
+                            <label for="coupon_code" class="screen-reader-text">Coupon:</label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code"> <button type="submit" class="button" name="apply_coupon" value="Apply coupon">Apply coupon</button>
+                            </div>
+                            <button type="submit" class="button" name="update_cart" value="Update cart" disabled="">Update cart</button>
+                            <input type="hidden" id="woocommerce-cart-nonce" name="woocommerce-cart-nonce" value="bfa10f8ba0"><input type="hidden" name="_wp_http_referer" value="/cart/"> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <div class="cart-collaterals">
+                <div class="cart_totals ">
+                    <h2>Cart totals</h2>
+                    <table cellspacing="0" class="shop_table shop_table_responsive">
+                    <tbody>
+                    <tr class="cart-subtotal">
+                    <th>Subtotal</th>
+                    <td data-title="Subtotal"><span class="woocommerce-Price-amount amount"><bdi>77,00&nbsp;<span class="woocommerce-Price-currencySymbol">€</span></bdi></span>
+                    </td>
+                    </tr>
+                    <tr class="woocommerce-shipping-totals shipping">
+                    <th>Shipping</th>
+                    <td data-title="Shipping">
+                    <ul id="shipping_method" class="woocommerce-shipping-methods">
+                    <li>
+                    <input type="hidden" name="shipping_method[0]" data-index="0" id="shipping_method_0_flat_rate1" value="flat_rate:1" class="shipping_method"><label for="shipping_method_0_flat_rate1">Σταθερός Συντελεστής: <span class="woocommerce-Price-amount amount"><bdi>5,00&nbsp;<span class="woocommerce-Price-currencySymbol">€</span></bdi></span></label> </li>
+                    </ul>
+                    <p class="woocommerce-shipping-destination">
+                    Shipping to <strong>Attica</strong>.
+                    </p>
+                    <form class="woocommerce-shipping-calculator" action="https://homelover.gr/cart/" method="post">
+    
+                    <a href="#" class="shipping-calculator-button">Change address</a>
+                    <section class="shipping-calculator-form" style="display: none;">
+    
+                    <p class="form-row form-row-wide" id="calc_shipping_country_field">
+                    <label for="calc_shipping_country" class="screen-reader-text">Country / region:</label>
+                    <select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select select2-hidden-accessible" rel="calc_shipping_state" tabindex="-1" aria-hidden="true">
+                    <option value="default">Select a country / region…</option>
+                    <option value="GR" selected="selected">Greece</option> </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-calc_shipping_country-container" role="combobox"><span class="select2-selection__rendered" id="select2-calc_shipping_country-container" role="textbox" aria-readonly="true" title="Greece">Greece</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                    </p>
+                    <p class="form-row address-field form-row-wide" id="calc_shipping_state_field">
+                    <span>
+                    <label for="calc_shipping_state" class="screen-reader-text">State / County&nbsp;<span class="optional">(optional)</span></label>
+                    <select name="calc_shipping_state" class="state_select select2-hidden-accessible" id="calc_shipping_state" data-placeholder="State / County" tabindex="-1" aria-hidden="true"><option value="">Select an option…</option><option value="I">Attica</option><option value="A">East Macedonia and Thrace</option><option value="B">Central Macedonia</option><option value="C">West Macedonia</option><option value="D">Epirus</option><option value="E">Thessaly</option><option value="F">Ionian Islands</option><option value="G">West Greece</option><option value="H">Central Greece</option><option value="J">Peloponnese</option><option value="K">North Aegean</option><option value="L">South Aegean</option><option value="M">Crete</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-calc_shipping_state-container" role="combobox"><span class="select2-selection__rendered" id="select2-calc_shipping_state-container" role="textbox" aria-readonly="true" title="Attica">Attica</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                    </span>
+                    </p>
+    
+                    <p class="form-row validate-required address-field form-row-wide" id="calc_shipping_city_field">
+                    <label for="calc_shipping_city" class="screen-reader-text">Town / City&nbsp;<abbr class="required" title="required">*</abbr></label>
+                    <input type="text" class="input-text" value="" placeholder="City" name="calc_shipping_city" id="calc_shipping_city">
+                    </p>
+    
+                    <p class="form-row validate-required address-field form-row-wide" id="calc_shipping_postcode_field">
+                    <label for="calc_shipping_postcode" class="screen-reader-text">Postcode / ZIP&nbsp;<abbr class="required" title="required">*</abbr></label>
+                    <input type="text" class="input-text" value="" placeholder="Postcode / ZIP" name="calc_shipping_postcode" id="calc_shipping_postcode">
+                    </p>
+    
+                    <p><button type="submit" name="calc_shipping" value="1" class="button">Update</button></p>
+                    <input type="hidden" id="woocommerce-shipping-calculator-nonce" name="woocommerce-shipping-calculator-nonce" value="c7f34b2e00"><input type="hidden" name="_wp_http_referer" value="/cart/"> </section>
+                    </form>
+    
+                    </td>
+                    </tr>
+    
+                    <tr class="order-total">
+                    <th>Total</th>
+                    <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><bdi>82,00&nbsp;<span class="woocommerce-Price-currencySymbol">€</span></bdi></span></strong> </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <div class="wc-proceed-to-checkout">
+                        <a href="https://homelover.gr/checkout/" class="checkout-button button alt wc-forward">
+                    Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
