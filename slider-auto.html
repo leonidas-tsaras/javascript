@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image slider</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+div.image-slider {
+    --MAXWIDTH: 900px;
+    --ASPECTRATIO: 3/2;
+    width: 100%;
+    max-width: var(--MAXWIDTH);
+    aspect-ratio: var(--ASPECTRATIO);
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+    
+    > div.arrows {
+        position: sticky;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        
+        > button {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            font-size: 2rem;
+            padding: 0.5rem;
+            border-radius: 10%;
+        }
+    }
+
+    > div.scroller {
+        width: max-content;
+        min-width: 100%;
+        height: 100%;
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: 0;
+        
+        > img {
+            aspect-ratio: var(--ASPECTRATIO);
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+    </style>
+
+    <script>
+        window.addEventListener("load", () => {
+            runImageSlider();
+        });
+
+        function runImageSlider() {
+            let counter = -1;
+
+            let imageSlider = document.querySelector("div.image-slider");
+            let images = Array.from(imageSlider.querySelectorAll("div.scroller > img"));
+            let arrows = Array.from(imageSlider.querySelectorAll("div.arrows > button"));
+            
+            let interval = window.setInterval(slideImage, 3500, 1);
+
+            imageSlider.addEventListener("mouseover", () => {
+                window.clearInterval(interval);
+            });
+            imageSlider.addEventListener("mouseout", () => {
+                interval = window.setInterval(slideImage, 3500, 1);
+            });
+
+            arrows[0].addEventListener("click", () => {
+                slideImage(-1);
+            });
+            arrows[1].addEventListener("click", () => {
+                slideImage(1);
+            });
+
+            function slideImage(sign = 0) {
+
+                counter += sign;
+                if(counter < 0) {
+                    counter = 0;
+                    return;
+                }
+                if(counter > images.length - 1) {
+                    counter = 0;
+                }
+
+                images[counter].scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="image-slider">
+        <div class = "scroller">
+            <img src="./images/home-a.webp" loading = "lazy">
+            <img src="./images/home-b.webp" loading = "lazy">
+            <img src="./images/home-c.webp" loading = "lazy">
+            <img src="./images/home-d.webp" loading = "lazy">
+            <img src="./images/home-e.webp" loading = "lazy">
+        </div>
+        <div class = "arrows">
+            <button>&#11164;</button> <!-- ⮜ -->
+            <button>&#11166;</button> <!-- ⮞ -->
+        </div>
+    </div>
+</body>
+</html>

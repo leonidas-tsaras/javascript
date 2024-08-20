@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image slider</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            color: black;
+        }
+
+        p {
+            margin-bottom: 1.3rem;
+            line-height: 150%;
+        }
+
+        div.image-slider {
+            --MAXWIDTH: 900px;
+            --ASPECTRATIO: 3/2;
+            width: 100%;
+            max-width: var(--MAXWIDTH);
+            aspect-ratio: var(--ASPECTRATIO);
+            position: relative;
+            overflow: hidden;
+            margin-left: auto;
+            margin-right: auto;
+
+            & > div.arrows {
+                position: sticky;
+                left: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                z-index: 1001;
+                
+                & > button {
+                    background-color: rgba(255, 255, 255, 0.3);
+                    color: white;
+                    cursor: pointer;
+                    font-size: 2rem;
+                    padding: 0.5rem;
+                    border-radius: 10%;
+                }
+
+                & > div.over-text {
+                    border-radius: 1rem;
+                    color: white;
+                    width: 75%;
+                    padding: 1rem;
+                    background-color: rgba(10, 10, 10, .3);
+                }
+            }
+
+            & > div.scroller {
+                width: max-content;
+                min-width: 100%;
+                height: 100%;
+                display: flex;
+                position: absolute;
+                left: 0;
+                top: 0;
+                
+                > img {
+                    aspect-ratio: var(--ASPECTRATIO);
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+        }
+
+        @media (width <= 580px) {
+            div.image-slider {
+                & > div.arrows {
+                    & > div.over-text > p {
+                        margin: 0;
+                        line-height: 130%;
+                    }
+                }
+            }
+        }
+    </style>
+
+    <script>
+        window.addEventListener("load", () => {
+            runImageSlider();
+        });
+
+        function runImageSlider() {
+            let counter = -1;
+
+            let imageSlider = document.querySelector("div.image-slider");
+            let images = Array.from(imageSlider.querySelectorAll("div.scroller > img"));
+            let arrows = Array.from(imageSlider.querySelectorAll("div.arrows > button"));
+            
+            let interval = window.setInterval(slideImage, 3500, 1);
+
+            imageSlider.addEventListener("mouseover", () => {
+                window.clearInterval(interval);
+            });
+            imageSlider.addEventListener("mouseout", () => {
+                interval = window.setInterval(slideImage, 3500, 1);
+            });
+
+            arrows[0].addEventListener("click", () => {
+                slideImage(-1);
+            });
+            arrows[1].addEventListener("click", () => {
+                slideImage(1);
+            });
+
+            function slideImage(sign = 0) {
+
+                counter += sign;
+                if(counter < 0) {
+                    counter = 0;
+                    return;
+                }
+                if(counter > images.length - 1) {
+                    counter = 0;
+                }
+
+                images[counter].scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="image-slider">
+        <div class = "scroller">
+            <img src="./images/home-a.webp" loading = "lazy">
+            <img src="./images/home-b.webp" loading = "lazy">
+            <img src="./images/home-c.webp" loading = "lazy">
+            <img src="./images/home-d.webp" loading = "lazy">
+            <img src="./images/home-e.webp" loading = "lazy">
+        </div>
+        <div class = "arrows">
+            <button>&#11164;</button> <!-- ⮜ -->
+            <div class = "over-text">
+                <p>Inspire your space at work or at home by bringing mother nature’s gifts from ancient times to be your present…</p>
+                <p>Uniquely sophisticated ,these glamorous products with all of the heritage, lineage and ancestry become pure Art at the hand of Apostolos who will bring any space to life</p>
+            </div>
+            <button>&#11166;</button> <!-- ⮞ -->
+        </div>
+    </div>
+</body>
+</html>
