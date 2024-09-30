@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>Draggable Contained Image</title>
+<style>
+* {
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	outline: none;
+}
+
+body {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+.draggable-image {
+    width: 400px;
+    height: 400px;
+    border: solid thin red;
+    overflow: hidden;
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.draggable-image > img {
+    display: block;
+    transition: all 0.5s;
+}
+.draggable-image:hover > img {
+    transform: scale(2, 2);
+}
+</style>
+
+<script>
+window.addEventListener("load", init);
+function init() {
+    let element = document.querySelector("div.draggable-image");
+    draggableContainedImage(element)
+}
+
+function draggableContainedImage(element) {
+    
+    let isMouseDown = false;
+    let startX, startY;
+    let scrollLeft, scrollTop;
+
+    element.addEventListener('mousedown', (event) => {
+        isMouseDown = true;
+        startX = event.pageX - element.offsetLeft;
+        startY = event.pageY - element.offsetTop;
+        scrollLeft = element.scrollLeft;
+        scrollTop = element.scrollTop;
+    });
+
+    element.addEventListener('mouseup', () => {
+        isMouseDown = false;
+    });
+
+    element.addEventListener('mouseleave', () => {
+        isMouseDown = false;
+    });
+
+    element.addEventListener('mousemove', (event) => {
+        if(!isMouseDown) return;
+        event.preventDefault();
+        const x = event.pageX - element.offsetLeft;
+        const y = event.pageY - element.offsetTop;
+        const dx = (x - startX)*1.1;
+        const dy = (y - startY)*1.1;
+        element.scroll(scrollLeft - dx, scrollTop - dy);
+    });
+}
+
+</script>
+</head>
+
+<body>
+    <div class="draggable-image">
+        <img src="./images/800.jpg" draggable="false">
+    </div>
+</body>
+</html>

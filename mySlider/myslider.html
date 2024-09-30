@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <link rel="stylesheet" href="myslider.css" />
+    <title>Vanilla Slider</title>
+    <script src="myslider.js"></script>
+    <script>
+      window.addEventListener("load", function() {
+        let container = document.querySelector("div.draggableSlider");
+        runDraggableSlider(container);
+      });
+    </script>
+  </head>
+  <body>
+
+    <div class="draggableSlider">
+      <div>
+          <img src="images/mountain.jpg" />
+          <img src="images/coffee.jpeg" />
+          <img src="images/path.jpg" />
+          <img src="images/img3.jpg" />
+          <img src="images/river.jpg" />
+          <img src="images/ship.jpg" />
+          <img src="images/winter.jpg" alt="" />
+      </div>
+    </div>
+
+  </body>
+</html>

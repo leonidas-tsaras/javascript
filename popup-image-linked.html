@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="developer" content="leonidas.tsaras@gmail.com" />
+<title>popup image linked</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-sizing: border-box;
+    }
+
+    #popup-image {
+        --primaryColor: green;
+        position: absolute;
+        display: none;
+        width: 100%;
+        max-width: 600px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        & > a > img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        & > span {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            right: 3px;
+            top: 3px;
+            cursor: pointer;
+            color: var(--primaryColor);
+            border: solid 2px black;
+            border-color: var(--primaryColor);
+            border-radius: 50%;
+            padding: 3px 5px;
+        }
+
+        & > span:hover {
+            transform: scale(1.1);
+        }
+    }
+
+</style>
+<script>
+function popupImage() {
+	//set popup div
+	let popup = document.querySelector("#popup-image");
+    let span = popup.querySelector('span');
+
+    popup.style.display = "block";
+
+    span.addEventListener("click", () => {
+        popup.style.display = "none";
+    });
+}
+
+</script>
+</head>
+<body>
+	<div id="popup-image">
+        <a href="https://www.instagram.com/alphapilates.gr/" target="_blank">
+            <img src="./images/follow-us-on-instagram.png" />
+        </a>
+        <span>&#9932;</span> <!-- ⛌ -->
+    </div>
+	
+    <button id="popupbutton" onclick='popupImage()'>click to pop up</button>
+</body>
+</html>

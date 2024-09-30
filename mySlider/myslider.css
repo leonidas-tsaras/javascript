@@ -1,0 +1,61 @@
+
+
+div.draggableSlider * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+div.draggableSlider {
+    --app-width: 100vw;
+    --app-height: calc(var(--app-width) * 0.67);
+    width: var(--app-width);
+    height: var(--app-height);
+    overflow: hidden;
+    scrollbar-width: none; /* for Firefox */
+    margin: auto;
+    /* border: thin solid lightgray; */
+}
+
+@media (orientation: landscape) {
+  div.draggableSlider {
+    --app-height: 80vh;
+    --app-width: calc(var(--app-height) * 1.5);
+  }
+}
+
+div.draggableSlider > div {
+  height: 100%;
+  display: inline-flex;
+/*   align-items: center;
+  justify-content: center; */
+  cursor: grab;
+  transform: translateX(0);
+  will-change: transform;
+  transition: transform 0.3s ease-out;
+}
+
+div.draggableSlider > div > img {
+    width: var(--app-width);
+    height: var(--app-height);
+    padding: 1rem;
+    border-radius: 4px;
+    user-select: none;
+    object-fit: contain;
+    transition: transform 0.3s ease-out;
+}
+
+div.draggableSlider > div.grabbing {
+  cursor: grabbing;
+}
+
+div.draggableSlider > div.grabbing > img {
+  transform: scale(0.9);
+  /* box-shadow: 5px 5px 5px -1px lightgray; */
+}
+
+
+
+
+
