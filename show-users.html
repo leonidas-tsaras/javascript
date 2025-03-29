@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 
+        variables
+        DOM
+        BOM
+        built-in
+        custom (json)
+     -->
+    <script>
+        //let x = document.querySelector("p.par");
+        //let d = document;
+        //d.querySelector("p.par");
+        //let d = new Date();
+
+        let person = {
+            fname: "Joe",
+            lname: "Doe",
+            year: 2000,
+            getAge: function() {
+                let currentYear = new Date().getFullYear();
+                return currentYear - this.year;
+            }
+        };
+
+        let users = [
+            {
+                fname: "Joe",
+                lname: "Doe",
+            },
+            {
+                fname: "Steve",
+                lname: "Brown",
+            },
+            {
+                fname: "Jane",
+                lname: "Jackson",
+            }            
+        ];
+
+
+        function showUsers() {
+            let ul = document.querySelector("ul#users");
+            for(let i=0; i < users.length; i++) {
+                let li = document.createElement("li"); //<li></li>
+                li.textContent = users[i].fname + " " + users[i].lname; // <li>name</li>
+                ul.appendChild(li);
+            }
+        }
+
+        //window.addEventListener("load", showUsers);
+
+
+    </script>
+</head>
+<body>
+    <button onclick="showUsers()">show users</button>
+
+    <ul id = "users"></ul>
+
+</body>
+</html>

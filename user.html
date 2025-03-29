@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #users {
+          font-family: Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width:600px;
+        }
+        
+        #users td, #users th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #users tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #users tr:hover {background-color: #ddd;}
+        
+        #users th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #04AA6D;
+          color: white;
+        }
+        </style>
+</head>
+<body>
+
+    <table id = "users">
+        <tr><th>First Name</th><th>Last Name</th><th>Age</th></tr>
+        <tr><td id = "name"></td><td id = 'lname'></td><td id = 'age'></td></tr>
+    </table>
+
+    <script>
+        let user = { //json object
+            name: "joe",
+            lname: "doe",
+            year: 2000,
+            fruits: ["apples", "bananas", "oranges"],
+            address: {
+                street: "odos",
+                number: 17,
+                code: 12345
+            },
+            age: function() {
+                let d = new Date();
+                return d.getFullYear() - this.year;
+            }
+        };
+
+/*         let n = document.querySelector("td#name");
+        let l = document.querySelector("td#lname");
+        let a = document.querySelector("td#age");
+        n.textContent = user.name;
+        l.textContent = user.lname;
+        a.textContent = user.age(); */
+
+/*         document.querySelector("td#name").textContent = user.name;
+        document.querySelector("td#lname").textContent = user.lname;
+        document.querySelector("td#age").textContent = user.age(); */
+
+        let trs = document.querySelectorAll("table#users tr");
+        let tds = trs[1].querySelectorAll("td");
+        tds[0].textContent = user.name;
+        tds[1].textContent = user.lname;
+        tds[2].textContent = user.age(); 
+
+        //console.log(tds[0].textContent = );
+        
+    </script>
+</body>
+</html>

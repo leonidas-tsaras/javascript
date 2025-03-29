@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            border: none;
+            outline: none;
+            text-decoration: none;
+        }
+        input {
+            padding: 5px;
+            border: solid thin lightgray;
+            width: 6rem;
+        }
+        button {
+            padding: 5px;
+            border: solid thin lightgray;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+
+        function euros2dollars() {
+            //select elements
+            let euro = document.querySelector("input#euro");
+            let dollar = document.querySelector("input#dollar");
+            
+            let dollars = euro.value * 1.1;
+            dollars = dollars.toFixed(2);
+            dollar.value = dollars;
+        }
+
+    </script>
+</head>
+<body>
+
+    <input type="number" id="euro" value = "" min="0" placeholder = "euros">
+    <button onclick="euros2dollars()">euros to dollars</button>
+    <input disabled type="number" id="dollar" value = "" placeholder = "dollars">
+    
+</body>
+</html>

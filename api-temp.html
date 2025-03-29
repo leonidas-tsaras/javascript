@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table th {
+            text-align: left;
+        }
+    </style>
+
+    <script>
+        async function getData(url, callback) {
+            await fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                callback(json);
+            });
+        }
+
+        function getWeather(json) {
+            //console.log(json);
+            let temp = json.main.temp - 273;
+            let min = json.main.temp_min - 273;
+            let max = json.main.temp_max - 273;
+
+            temp = temp.toFixed(2);
+            min = min.toFixed(2);
+            max = max.toFixed(2);
+
+            let td_temp = document.querySelector("#weather tr:nth-child(1) td");
+            td_temp.textContent = temp;
+
+            let td_min = document.querySelector("#weather tr:nth-child(2) td");
+            td_min.textContent = min;
+            
+            let td_max = document.querySelector("#weather tr:nth-child(3) td");
+            td_max.textContent = max;
+        }
+    </script>
+
+</head>
+<body>
+    <button onclick = "getData('https://api.openweathermap.org/data/2.5/weather?q=Athens&appid=beda86a09ebe5fdfbdde59c0e833a9a0', getWeather)">get weather</button>
+    
+    <table id = "weather">
+        <tr><th>Θερμοκρασία</th><td></td></tr>
+        <tr><th>Μεγ. Θερμοκρασία</th><td></td></tr>
+        <tr><th>Ελαχ. Θερμοκρασία</th><td></td></tr>
+    </table>
+</body>
+</html>

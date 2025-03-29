@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            border: none;
+            outline: none;
+            text-decoration: none;
+        }
+
+        body {
+            color: black;
+            background-color: white;
+        }
+        input {
+            padding: 5px;
+            border: solid thin lightgray;
+            width: 6rem;
+        }
+
+        div#container {
+            border: solid thin lightgray;
+            padding: 0.5rem;
+            width: fit-content;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+        function onChange() {
+            let body = document.body;
+            let r = document.querySelector("input#r");
+            let g = document.querySelector("input#g");
+            let b = document.querySelector("input#b");
+
+            //let bgcolor = "rgb(" + r.value + ", " + g.value + ", " + b.value + ")";
+            let bgcolor = `rgb(${r.value}, ${g.value}, ${b.value})`;
+
+            body.style.backgroundColor = bgcolor;
+        }
+    </script>
+</head>
+<body>
+<div id = "container">
+    Red: <input placeholder="Red" type="number" id="r" min = "0" max = "255" onchange="onChange()">
+    Green: <input placeholder="Green" type="number" id="g" min = "0" max = "255" onchange="onChange()">
+    Blue: <input placeholder="Blue" type="number" id="b" min = "0" max = "255" onchange="onChange()">
+</div>
+</body>
+</html>
