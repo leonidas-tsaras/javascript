@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="developer" content="leonidas.tsaras@gmail.com" />
+  <title>lightbox wirh background image</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      border: none;
+      box-sizing: border-box;
+      font-size: 18px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    img.lbox {
+      width: 200px;
+      cursor: pointer;
+    }
+
+    div.shade {
+      background-color: rgba(161, 126, 90, 0.3);
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    div.shade>img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+    }
+  </style>
+
+  <script>
+    function lightBox(src) {
+      let shade = document.createElement("div");
+      shade.className = "shade";
+      //shade.onclick = deleteShade;
+      shade.addEventListener("click", deleteShade)
+
+      let bigImage = document.createElement("img");
+      bigImage.src = src;
+      shade.appendChild(bigImage);
+
+      document.body.appendChild(shade);
+
+      function deleteShade() {
+        document.body.removeChild(shade);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <img class="lbox" src="./images/home-a.webp" onclick="lightBox('./images/home-a.webp')">
+  <img class="lbox" src="./images/home-b.webp" onclick="lightBox('./images/home-b.webp')">
+  <img class="lbox" src="./images/home-c.webp" onclick="lightBox('./images/home-c.webp')">
+  <img class="lbox" src="./images/home-d.webp" onclick="lightBox('./images/home-d.webp')">
+</body>
+
+</html>
