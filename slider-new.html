@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+* {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  --maxWidth: 1400px;
+  --primaryColor: #7d2f2f;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  color: rgb(126, 126, 126);
+  font-size: 16px;
+}
+
+div.gallery {
+    --galleryWidth: 30%;
+    --aspectRatio: 1/1;
+    width: var(--galleryWidth);
+    aspect-ratio: var(--aspectRatio);
+    display: flex;
+    justify-content: left;
+    overflow: hidden;
+    position: relative;
+    
+    > img {
+        width: 100%;
+        aspect-ratio: var(--aspectRatio);
+        object-fit: cover;
+        border: solid 2px red;
+    }
+
+    > span {
+        position: fixed;
+        left: 0;
+        top: 0;
+        font-size: 3rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+    }
+}
+    </style>
+
+    <script>
+        counter = 0;
+        function goToNext(container) {
+            images = container.querySelectorAll("img");
+            counter++;
+            if(counter == images.length) counter = 0;
+            images[counter].scrollIntoView({ behavior: "smooth"});
+        }
+    </script>
+</head>
+<body>
+
+    <div class = "gallery" onclick="goToNext(this)">
+        <img src="./images/01.jpg" alt="">
+        <img src="./images/02.jpg" alt="">
+        <img src="./images/03.jpg" alt="">
+        <img src="./images/04.jpg" alt="">
+        <span>R</span>
+    </div>
+    
+</body>
+</html>
